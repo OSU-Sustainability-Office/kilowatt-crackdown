@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="Dashboard for OSU's Kilowatt Crackdown competition.">
+  <meta name="keywords" content="kilowatt,crackdown,osu,oregon,state,university,energy,competition">
+  <meta name="author" content="Jack Woods - jackrwoods@gmail.com">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Kilowatt Crackdown Dashboard</title>
+
+  <!-- Include Bootstrap V4.0 CDN -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/c3.min.css">
+  <link rel="stylesheet" href="css/fonts.css">
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Javascript -->
+  <script src="js/interactive.js" defer></script>
+
+
+  <!-- Load d3.js and c3.js for charts-->
+  <script src="js/d3.min.js" charset="utf-8" defer></script>
+  <script src="js/c3.min.js" defer></script>
+  <script src="js/charts.js" defer></script>
+
+</head>
+
+<body>
+  <div class="container-fluid">
+    <!-- Container spans width of page-->
+
+    <!-- Logo -->
+    <div class="jumbotron">
+      <div class="row flex-nowrap">
+        <div class="col left-bolt"><img class="lb1" src="img/lightning1.svg"></img>
+        </div>
+        <div class="col">Kilowatt Crackdown</div>
+        <div class="col right-bolt"><img class="lb1" src="img/lightning2.svg"></img>
+        </div>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-md">
+        <div class="card">
+          <div class="card-body">
+            <center>
+              <h1>Leaderboard</h1>
+              <h4>
+                <div class="alert alert-success" role="alert"><li>West (-100%)</li></div>
+                <div class="alert alert-success" role="alert"><li>Sackett (-15%)</li></div>
+                <div class="alert alert-success" role="alert"><li>Wilson (-3%)</li></div>
+                <div class="alert alert-warning" role="alert"><li>Cauthorn (-0.1%)</li></div>
+                <div class="alert alert-danger" role="alert"><li>Finley (+5%)</li></div>
+                <div class="alert alert-danger" role="alert"><li>Mcnary (+25%)</li></div>
+              </h4>
+          </center>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row"><div class="col"><center><img class="hr" src="img/hr.svg"></img></center></div></div>
+
+
+    <div class="row justify-content-center">
+      <div class="col-sm">
+        <div class="card text-white">
+          <div class="chart" id="chart"></div>
+          <div class="card-img-overlay hidden">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            <p class="card-text">Last updated 3 mins ago</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm">
+        <div class="card text-white">
+          <div class="chart" id="chart2"></div>
+          <div class="card-img-overlay hidden">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            <p class="card-text">Last updated 3 mins ago</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm">
+        <div class="card text-white">
+          <div class="chart" id="chart3"></div>
+          <div class="card-img-overlay hidden">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            <p class="card-text">Last updated 3 mins ago</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,13 @@
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 97.1 59.38">
+  <defs>
+    <style>
+      .cls-1 {
+        stroke: #000;
+        stroke-miterlimit: 10;
+        stroke-width: 6.41px;
+        fill: url("#linear-gradient");
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="2525.69" y1="2605.18" x2="2545.57" y2="2654.27" gradientTransform="matrix(0, -1, -1, 0, 2672.49, 2562.98)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#f27421"/><stop offset="1" stop-color="#fdd900"/></linearGradient>
+  </defs>
+  <title>lightning2</title><path class="cls-1" d="M93.44,3.23,52.84,19.52a.71.71,0,0,1-1-.66V9.35a.6.6,0,0,0-1-.43L3.31,55.6a.33.33,0,0,0,.36.54L44.45,39.27a.71.71,0,0,1,1,.65V50.44a.6.6,0,0,0,1,.43L93.8,3.78A.33.33,0,0,0,93.44,3.23Z" transform="translate(0 0)"/></svg>

@@ -1,0 +1,146 @@
+/* Small devices */
+@media (min-width: 0px) {
+  .jumbotron {
+    background: linear-gradient(to right, #00bace, #5bbb68);
+
+    font-family: "Harlow Solid";
+    font-size: 3em;
+    text-align: center;
+    line-height: normal;
+
+    padding: 0em;
+  }
+  .left-bolt {
+    padding: 0;
+    text-align: right;
+  }
+  .right-bolt {
+    padding: 0;
+    text-align: left;
+  }
+  .lb1 {
+    height: .5em;
+  }
+  .hr {
+    padding: 1em;
+    max-width: 100%;
+  }
+  .hidden {
+    display: none;
+  }
+  .card-img-overlay {
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+  .col-sm {
+    max-width: 540px;
+  }
+  .row {
+    margin-bottom: 1em;
+  }
+
+  svg {
+    background-color: #fff;
+  }
+  h1 {
+    font-family: "Stratum2";
+    font-size: 3em;
+  }
+  h2 {
+    font-family: "Stratum2";
+    font-size: 2em;
+    color: #F89C1C;
+  }
+  h3 {
+    font-family: "Stratum2";
+    font-size: 2em;
+  }
+  h3 {
+    font-family: "Stratum2";
+    font-size: 2em;
+  }
+}
+
+/* Phones*/
+@media (min-width: 576px) {
+  .jumbotron {
+    background: linear-gradient(to right, #00bace, #5bbb68);
+
+    font-family: "Harlow Solid";
+    font-size: 5em;
+    text-align: center;
+    line-height: normal;
+
+    padding: 0em;
+  }
+  .left-bolt {
+    padding: 0;
+    text-align: right;
+  }
+  .right-bolt {
+    padding: 0;
+    text-align: left;
+  }
+  .lb1 {
+    height: 35%;
+  }
+  .hr {
+    max-height: 4.2em;
+    max-width: 70%;
+  }
+
+  h1 {
+    font-family: "Stratum2";
+    font-size: 4em;
+  }
+  h2 {
+    font-family: "Stratum2";
+    font-size: 3em;
+    color: #F89C1C;
+  }
+  h3 {
+    font-family: "Stratum2";
+    font-size: 2em;
+  }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  .jumbotron {
+    background: linear-gradient(to right, #00bace, #5bbb68);
+
+    font-family: "Harlow Solid";
+    font-size: 8em;
+    text-align: center;
+    line-height: normal;
+
+    padding: 0em;
+  }
+  .left-bolt {
+    padding: 0;
+    text-align: right;
+  }
+  .right-bolt {
+    padding: 0;
+    text-align: left;
+  }
+  .lb1 {
+    height: 1em;
+  }
+  .hr {
+    max-height: 7.1em;
+  }
+
+  h1 {
+    font-family: "Stratum2";
+    font-size: 4em;
+  }
+  h2 {
+    font-family: "Stratum2";
+    font-size: 3em;
+    color: #F89C1C;
+  }
+  h3 {
+    font-family: "Stratum2";
+    font-size: 2.5em;
+  }
+}
