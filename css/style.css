@@ -29,7 +29,7 @@
     display: none;
   }
   .card-img-overlay {
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.9);
   }
   .col-sm {
     max-width: 540px;
@@ -38,6 +38,9 @@
     margin-bottom: 1em;
   }
 
+  img {
+    max-height: 10em;
+  }
   svg {
     background-color: #fff;
   }
@@ -88,13 +91,16 @@
     max-width: 70%;
   }
 
+  img {
+    max-height: 17em;
+  }
   h1 {
     font-family: "Stratum2";
     font-size: 4em;
   }
   h2 {
     font-family: "Stratum2";
-    font-size: 3em;
+    font-size: 2em;
     color: #F89C1C;
   }
   h3 {
@@ -130,15 +136,6 @@
     max-height: 7.1em;
   }
 
-  h1 {
-    font-family: "Stratum2";
-    font-size: 4em;
-  }
-  h2 {
-    font-family: "Stratum2";
-    font-size: 3em;
-    color: #F89C1C;
-  }
   h3 {
     font-family: "Stratum2";
     font-size: 2.5em;
