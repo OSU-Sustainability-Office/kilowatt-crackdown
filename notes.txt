@@ -1,0 +1,1 @@
+/api/getBuildingData?buildings=5aab1076dbdd3c325439a214&end=2018-03-30&start=2018-03-00&variable=Accumulated+Real+Energy+Net

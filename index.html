@@ -21,6 +21,9 @@
 
   <!-- Javascript -->
   <script src="js/interactive.js" defer></script>
+  <!--Not deferred in order to begin data requests on another thread.-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="js/data/js"></script>
 
 
   <!-- Load d3.js and c3.js for charts-->
@@ -72,8 +75,11 @@
     </div>
 
 
+
+<div class="row justify-content-center"><h3>Cauthorn</h3></div>
+
     <div class="row justify-content-center">
-      <div class="col-sm">
+      <div class="col-md">
         <div class="card text-white">
           <div class="chart" id="chart"></div>
           <div class="card-img-overlay hidden">
@@ -83,19 +89,9 @@
           </div>
         </div>
       </div>
-      <div class="col-sm">
+      <div class="col-md">
         <div class="card text-white">
           <div class="chart" id="chart2"></div>
-          <div class="card-img-overlay hidden">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            <p class="card-text">Last updated 3 mins ago</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm">
-        <div class="card text-white">
-          <div class="chart" id="chart3"></div>
           <div class="card-img-overlay hidden">
             <h5 class="card-title">Card title</h5>
             <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
