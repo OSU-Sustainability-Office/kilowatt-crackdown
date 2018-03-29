@@ -21,35 +21,45 @@ var currentData = [
     id: "5aba8e95c224ce2b0eb05b1b", // Reference ObjectID
     data: [], // Empty array that will be populated with data.
     hourly_baseline: [],
-    hourly: []
+    hourly: [],
+    weekly_baseline: [],
+    weekly: []
   },
   {
     name: "McNary",
     id: "5aba8eb6c224ce2b0eb05b1c",
     data: [],
     hourly_baseline: [],
-    hourly: []
+    hourly: [],
+    weekly_baseline: [],
+    weekly: []
   },
   {
     name: "Sackett",
     id: "5aba8ec7c224ce2b0eb05b1d",
     data: [],
     hourly_baseline: [],
-    hourly: []
+    hourly: [],
+    weekly_baseline: [],
+    weekly: []
   },
   {
     name: "West",
     id: "5aba8ed4c224ce2b0eb05b1e",
     data: [],
     hourly_baseline: [],
-    hourly: []
+    hourly: [],
+    weekly_baseline: [],
+    weekly: []
   },
   {
     name: "Wilson",
     id: "5aba8ee5c224ce2b0eb05b1f",
     data: [],
     hourly_baseline: [],
-    hourly: []
+    hourly: [],
+    weekly_baseline: [],
+    weekly: []
   }
 ];
 // Calculate this week's date range.
@@ -123,8 +133,35 @@ var calcData = setInterval(function() {
         currentData[i].hourly.push(Math.abs(val - prevVal)); // Some meters erroneously read negative, so absolute value is necessary.
         prevVal = val;
       }
+
+      // Begin daily totals/computations using hourly data.
+      // Baseline
+      var l = 0; // Location in array.
+      while (l < currentData[i].hourly_baseline.length) {
+        var sum = 0;
+        var j;
+        for (j = 0; j < 24 && j < currentData[i].hourly_baseline.length; j++) {
+          sum += currentData[i].hourly_baseline[l + j];
+        }
+        l += j;
+        currentData[i].weekly_baseline.push(sum);
+      }
+
+      // Current
+      var l = 0; // Location in array.
+      while (l < currentData[i].hourly.length) {
+        var sum = 0;
+        var j;
+        for (j = 0; j < 24 && j < currentData[i].hourly.length; j++) {
+          sum += currentData[i].hourly[l + j];
+        }
+        l += j;
+        currentData[i].weekly.push(sum);
+      }
+
+
     }
     // Draw Charts
     drawCharts();
   }
-}, 50); // Function is called every 50 milliseconds until clearInterval is called.
+}, 100); // Function is called every 50 milliseconds until clearInterval is called.
