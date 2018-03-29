@@ -6,7 +6,7 @@ function drawCharts() {
       data: {
         columns: [
           ["Baseline"].concat(currentData[0].hourly_baseline.slice(currentData[0].hourly_baseline.length - 25, currentData[0].hourly_baseline.length)),
-          ["Current Period"].concat(currentData[0].hourly.slice(currentData[0].hourly.length - 25, currentData[0].hourly.length))
+          ["Current Period"].concat(currentData[0].hourly.slice(currentData[0].hourly.length - currentData[0].hourly.length % 24, currentData[0].hourly.length))
         ],
         axes: {
           data2: 'y2'
@@ -26,7 +26,7 @@ function drawCharts() {
       data: {
         columns: [
           ["Baseline"].concat(currentData[1].hourly_baseline.slice(currentData[1].hourly_baseline.length - 25, currentData[1].hourly_baseline.length)),
-          ["Current Period"].concat(currentData[1].hourly.slice(currentData[1].hourly.length - 25, currentData[1].hourly.length))
+          ["Current Period"].concat(currentData[1].hourly.slice(currentData[1].hourly.length - currentData[1].hourly.length % 24, currentData[1].hourly.length))
         ],
         axes: {
           data2: 'y2'
@@ -46,7 +46,7 @@ function drawCharts() {
       data: {
         columns: [
           ["Baseline"].concat(currentData[2].hourly_baseline.slice(currentData[2].hourly_baseline.length - 25, currentData[2].hourly_baseline.length)),
-          ["Current Period"].concat(currentData[2].hourly.slice(currentData[2].hourly.length - 25, currentData[2].hourly.length))
+          ["Current Period"].concat(currentData[2].hourly.slice(currentData[2].hourly.length - currentData[2].hourly.length % 24, currentData[2].hourly.length))
         ],
         axes: {
           data2: 'y2'
@@ -66,7 +66,7 @@ function drawCharts() {
       data: {
         columns: [
           ["Baseline"].concat(currentData[3].hourly_baseline.slice(currentData[3].hourly_baseline.length - 25, currentData[3].hourly_baseline.length)),
-          ["Current Period"].concat(currentData[3].hourly.slice(currentData[3].hourly.length - 25, currentData[3].hourly.length))
+          ["Current Period"].concat(currentData[3].hourly.slice(currentData[3].hourly.length - currentData[3].hourly.length % 24, currentData[3].hourly.length))
         ],
         axes: {
           data2: 'y2'
@@ -86,7 +86,7 @@ function drawCharts() {
       data: {
         columns: [
           ["Baseline"].concat(currentData[4].hourly_baseline.slice(currentData[4].hourly_baseline.length - 25, currentData[4].hourly_baseline.length)),
-          ["Current Period"].concat(currentData[4].hourly.slice(currentData[4].hourly.length - 25, currentData[4].hourly.length))
+          ["Current Period"].concat(currentData[4].hourly.slice(currentData[4].hourly.length - currentData[4].hourly.length % 24, currentData[4].hourly.length))
         ],
         axes: {
           data2: 'y2'

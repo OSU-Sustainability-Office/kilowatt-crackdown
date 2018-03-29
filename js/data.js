@@ -164,4 +164,4 @@ var calcData = setInterval(function() {
     // Draw Charts
     drawCharts();
   }
-}, 100); // Function is called every 50 milliseconds until clearInterval is called.
+}, 100); // Function is called every 100 milliseconds until clearInterval is called.
