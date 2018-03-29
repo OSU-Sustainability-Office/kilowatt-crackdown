@@ -20,36 +20,36 @@ var currentData = [
     name: "Cauthorn",
     id: "5aba8e95c224ce2b0eb05b1b", // Reference ObjectID
     data: [], // Empty array that will be populated with data.
-    baseline: 0,
-    percentChange: 0
+    hourly_baseline: [],
+    hourly: []
   },
   {
     name: "McNary",
     id: "5aba8eb6c224ce2b0eb05b1c",
     data: [],
-    baseline: 0,
-    percentChange: 0
+    hourly_baseline: [],
+    hourly: []
   },
   {
     name: "Sackett",
     id: "5aba8ec7c224ce2b0eb05b1d",
     data: [],
-    baseline: 0,
-    percentChange: 0
+    hourly_baseline: [],
+    hourly: []
   },
   {
     name: "West",
     id: "5aba8ed4c224ce2b0eb05b1e",
     data: [],
-    baseline: 0,
-    percentChange: 0
+    hourly_baseline: [],
+    hourly: []
   },
   {
     name: "Wilson",
     id: "5aba8ee5c224ce2b0eb05b1f",
     data: [],
-    baseline: 0,
-    percentChange: 0
+    hourly_baseline: [],
+    hourly: []
   }
 ];
 // Calculate this week's date range.
@@ -77,9 +77,9 @@ for (var i = 0; i < 5; i++) {
   document.getElementsByTagName('head')[0].appendChild(script);
 }
 
-// Calculate percentage increase/decrease based on baseline data.
+// Calculates hourly consumption in KWh using "Accumulated Real Energy Net" meter data.
 // The function is called on an interval until all asynchronous data downloads are complete.
-var calcBaseline = setInterval(function() {
+var calcData = setInterval(function() {
   // If everything is downloaded...
   if (
     currentData[0].data.length != 0 &&
@@ -93,13 +93,38 @@ var calcBaseline = setInterval(function() {
     CSVList[3] != "" &&
     CSVList[4] != ""
   ) {
-    clearInterval(calcBaseline); // Prevent the function from being called again.
+    clearInterval(calcData); // Prevent the function from being called again.
 
+    // Begin hourly calculations.
     for (var i = 0; i < 5; i++) {
-      currentData[i].baseline = getDataPoint(i, d) - getDataPoint(i, day1);
+      // Begin with baseline data.
+      // Iterate over every hour (4 rows = 1 hour) in CSV baseline data.
+      var prevVal = CSVList[i].data[1][4]; // This is the meter reading at the
+                                           // beginning of the first hour.
+
+      // r starts at 5 because line 0 has the titles of each column in the csv
+      // file, and 5 contains the reading at the end of the first hour.
+      for (var r = 5; r < CSVList[i].data.length; r = r + 4) {
+        // [r][4] Selects Acc. Real Engy. Net
+        var val = CSVList[i].data[r][4];
+        currentData[i].hourly_baseline.push(Math.abs(val - prevVal)); // Some meters erroneously read negative, so absolute value is necessary.
+        prevVal = val;
+      }
+
+      console.log(currentData[i].data[0].point[0].value)
+      // Repeat similar calculation for current data.
+      prevVal = currentData[i].data[0].point[0].value;
+
+      // r begins at 4 because this data doesn't originate from a CSV file.
+      // row 0 actually contains data, instead of column titles.
+      for (var r = 4; r < currentData[i].data.length; r = r + 4) {
+        // data[r].point[0].value Selects Acc. Real Engy. Net
+        var val = currentData[i].data[r].point[0].value;
+        currentData[i].hourly.push(Math.abs(val - prevVal)); // Some meters erroneously read negative, so absolute value is necessary.
+        prevVal = val;
+      }
     }
+    // Draw Charts
+    drawCharts();
   }
-
-}, 50); // Function is called every 50 milliseconds.
-
-// Display data on charts.
+}, 50); // Function is called every 50 milliseconds until clearInterval is called.
