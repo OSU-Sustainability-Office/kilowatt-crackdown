@@ -1,5 +1,4 @@
 // Retrieve building data from server.
-
 var collectData = function collectData(obj) {
   obj = obj[0];
   // Perform linear search for building in currentData array.
@@ -68,7 +67,6 @@ var day1 = new Date(); // Set beginning date here.
 day1.setYear(2018);
 day1.setMonth(2);
 day1.setDate(25);
-//var day1 = new Date(d - 1000 * 60 * 60 * 24 * (d.getDay() - 1)); // Get date for first day of the week.
 /* d.getDay() - 1 returns monday as the first day of the week.
  * The baseline data starts on a Monday, so it's necessary.
  */
@@ -124,8 +122,9 @@ var calcData = setInterval(function() {
         currentData[i].hourly_baseline.push(Math.abs(val - prevVal)); // Some meters erroneously read negative, so absolute value is necessary.
         prevVal = val;
       }
-      console.log(currentData[i].hourly_baseline.length)
+
       // Repeat similar calculation for current data.
+      console.log(currentData[i])
       prevVal = currentData[i].data[0].point[0].value;
 
       // r begins at 4 because this data doesn't originate from a CSV file.
@@ -133,8 +132,13 @@ var calcData = setInterval(function() {
       for (var r = 4; r < currentData[i].data.length; r = r + 4) {
         // data[r].point[0].value Selects Acc. Real Engy. Net
         var val = currentData[i].data[r].point[0].value;
-        currentData[i].hourly.push(Math.abs(val - prevVal)); // Some meters erroneously read negative, so absolute value is necessary.
-        prevVal = val;
+        // Removes large numbers and other anomalies
+        if (Math.abs(val - prevVal) < 10000) {
+          currentData[i].hourly.push(Math.abs(val - prevVal)); // Some meters erroneously read negative, so absolute value is necessary.
+          prevVal = val;
+        } else {
+          currentData[i].hourly.push(currentData[i].hourly[currentData[i].hourly.length - 1]);
+        }
       }
 
       // Begin daily totals/computations using hourly data.

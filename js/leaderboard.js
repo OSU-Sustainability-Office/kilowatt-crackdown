@@ -47,12 +47,10 @@ function leaderboard() {
   for (var i = 0; i < currentData.length; i++) {
     // First, calculate the total energy used in baseline and current periods.
     // Baseline
-    console.log(currentData[i].weekly_baseline)
     var baseline = 0;
     for (var j = 0; j < currentData[i].weekly.length; j++) {
       baseline += currentData[i].weekly_baseline[j];
     }
-    console.log(baseline)
     // Current period
     var current = 0;
     for (var j = 0; j < currentData[i].weekly.length; j++) {

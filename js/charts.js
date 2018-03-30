@@ -1,206 +1,67 @@
+var dailyIdList = ["cdaily", "mdaily", "sdaily", "wdaily", "widaily"];
+var weeklyIdList = ["cweekly", "mweekly", "sweekly", "wweekly", "wiweekly"];
 function drawCharts() {
-
+  // Get current date.
+  var date = new Date();
+  var weekday = date.getDay() + 1;
+  var hour = date.getHours();
   // Daily Charts
-  var cdaily = c3.generate({
-      bindto: '#cdaily',
-      data: {
-        columns: [
-          ["Baseline"].concat(currentData[0].hourly_baseline.slice(currentData[0].hourly_baseline.length - 25, currentData[0].hourly_baseline.length)),
-          ["Current Period"].concat(currentData[0].hourly.slice(currentData[0].hourly.length - currentData[0].hourly.length % 24, currentData[0].hourly.length))
-        ],
-        axes: {
-          data2: 'y2'
-        }
-      },
-      axis: {
-        y: {
-          label: { // ADD
-            text: 'Kilowatt Hours',
-            position: 'outer-middle'
+  for (var i = 0; i < 5; i++) {
+    var daily = c3.generate({
+        bindto: '#' + dailyIdList[i],
+        data: {
+          columns: [
+            ["Baseline"].concat(currentData[i].hourly_baseline.slice(24 * weekday, 24 * (weekday + 1))),
+            ["Current Period"].concat(currentData[i].hourly.slice(currentData[i].hourly.length - hour, currentData[i].hourly.length))
+          ],
+          axes: {
+            data2: 'y2'
+          }
+        },
+        axis: {
+          y: {
+            label: { // ADD
+              text: 'Kilowatt Hours',
+              position: 'outer-middle'
+            }
           }
         }
-      }
-  });
-  var mdaily = c3.generate({
-      bindto: '#mdaily',
-      data: {
-        columns: [
-          ["Baseline"].concat(currentData[1].hourly_baseline.slice(currentData[1].hourly_baseline.length - 25, currentData[1].hourly_baseline.length)),
-          ["Current Period"].concat(currentData[1].hourly.slice(currentData[1].hourly.length - currentData[1].hourly.length % 24, currentData[1].hourly.length))
-        ],
-        axes: {
-          data2: 'y2'
-        }
-      },
-      axis: {
-        y: {
-          label: { // ADD
-            text: 'Kilowatt Hours',
-            position: 'outer-middle'
-          }
-        }
-      }
-  });
-  var sdaily = c3.generate({
-      bindto: '#sdaily',
-      data: {
-        columns: [
-          ["Baseline"].concat(currentData[2].hourly_baseline.slice(currentData[2].hourly_baseline.length - 25, currentData[2].hourly_baseline.length)),
-          ["Current Period"].concat(currentData[2].hourly.slice(currentData[2].hourly.length - currentData[2].hourly.length % 24, currentData[2].hourly.length))
-        ],
-        axes: {
-          data2: 'y2'
-        }
-      },
-      axis: {
-        y: {
-          label: { // ADD
-            text: 'Kilowatt Hours',
-            position: 'outer-middle'
-          }
-        }
-      }
-  });
-  var wdaily = c3.generate({
-      bindto: '#wdaily',
-      data: {
-        columns: [
-          ["Baseline"].concat(currentData[3].hourly_baseline.slice(currentData[3].hourly_baseline.length - 25, currentData[3].hourly_baseline.length)),
-          ["Current Period"].concat(currentData[3].hourly.slice(currentData[3].hourly.length - currentData[3].hourly.length % 24, currentData[3].hourly.length))
-        ],
-        axes: {
-          data2: 'y2'
-        }
-      },
-      axis: {
-        y: {
-          label: { // ADD
-            text: 'Kilowatt Hours',
-            position: 'outer-middle'
-          }
-        }
-      }
-  });
-  var widaily = c3.generate({
-      bindto: '#widaily',
-      data: {
-        columns: [
-          ["Baseline"].concat(currentData[4].hourly_baseline.slice(currentData[4].hourly_baseline.length - 25, currentData[4].hourly_baseline.length)),
-          ["Current Period"].concat(currentData[4].hourly.slice(currentData[4].hourly.length - currentData[4].hourly.length % 24, currentData[4].hourly.length))
-        ],
-        axes: {
-          data2: 'y2'
-        }
-      },
-      axis: {
-        y: {
-          label: { // ADD
-            text: 'Kilowatt Hours',
-            position: 'outer-middle'
-          }
-        }
-      }
-  });
+    });
+  }
 
   // Weekly Charts
-  var cweekly = c3.generate({
-      bindto: '#cweekly',
-      data: {
-        columns: [
-          ["Baseline"].concat(currentData[0].weekly_baseline.slice(currentData[0].weekly_baseline.length - 8, currentData[0].weekly_baseline.length)),
-          ["Current Period"].concat(currentData[0].weekly.slice(0, currentData[0].weekly.length))
-        ],
-        axes: {
-          data2: 'y2'
-        }
-      },
-      axis: {
-        y: {
-          label: { // ADD
-            text: 'Kilowatt Hours',
-            position: 'outer-middle'
+  for (var i = 0; i < 5; i++) {
+    var wiweekly = c3.generate({
+        bindto: '#' + weeklyIdList[i],
+        data: {
+          columns: [
+            ["Baseline"].concat(currentData[i].weekly_baseline.slice(currentData[i].weekly_baseline.length - 8, currentData[i].weekly_baseline.length)),
+            ["Current Period"].concat(currentData[i].weekly.slice(0, currentData[i].weekly.length))
+          ],
+          axes: {
+            data2: 'y2'
+          }
+        },
+        axis: {
+          y: {
+            label: { // ADD
+              text: 'Kilowatt Hours',
+              position: 'outer-middle'
+            }
           }
         }
-      }
-  });
-  var mweekly = c3.generate({
-      bindto: '#mweekly',
-      data: {
-        columns: [
-          ["Baseline"].concat(currentData[1].weekly_baseline.slice(currentData[1].weekly_baseline.length - 8, currentData[1].weekly_baseline.length)),
-          ["Current Period"].concat(currentData[1].weekly.slice(0, currentData[1].weekly.length))
-        ],
-        axes: {
-          data2: 'y2'
-        }
-      },
-      axis: {
-        y: {
-          label: { // ADD
-            text: 'Kilowatt Hours',
-            position: 'outer-middle'
-          }
-        }
-      }
-  });
-  var sweekly = c3.generate({
-      bindto: '#sweekly',
-      data: {
-        columns: [
-          ["Baseline"].concat(currentData[2].weekly_baseline.slice(currentData[2].weekly_baseline.length - 8, currentData[2].weekly_baseline.length)),
-          ["Current Period"].concat(currentData[2].weekly.slice(0, currentData[2].weekly.length))
-        ],
-        axes: {
-          data2: 'y2'
-        }
-      },
-      axis: {
-        y: {
-          label: { // ADD
-            text: 'Kilowatt Hours',
-            position: 'outer-middle'
-          }
-        }
-      }
-  });
-  var wweekly = c3.generate({
-      bindto: '#wweekly',
-      data: {
-        columns: [
-          ["Baseline"].concat(currentData[3].weekly_baseline.slice(currentData[3].weekly_baseline.length - 8, currentData[3].weekly_baseline.length)),
-          ["Current Period"].concat(currentData[3].weekly.slice(0, currentData[3].weekly.length))
-        ],
-        axes: {
-          data2: 'y2'
-        }
-      },
-      axis: {
-        y: {
-          label: { // ADD
-            text: 'Kilowatt Hours',
-            position: 'outer-middle'
-          }
-        }
-      }
-  });
-  var wiweekly = c3.generate({
-      bindto: '#wiweekly',
-      data: {
-        columns: [
-          ["Baseline"].concat(currentData[4].weekly_baseline.slice(currentData[4].weekly_baseline.length - 8, currentData[4].weekly_baseline.length)),
-          ["Current Period"].concat(currentData[4].weekly.slice(0, currentData[4].weekly.length))
-        ],
-        axes: {
-          data2: 'y2'
-        }
-      },
-      axis: {
-        y: {
-          label: { // ADD
-            text: 'Kilowatt Hours',
-            position: 'outer-middle'
-          }
-        }
-      }
-  });
+    });
+  }
 }
+// ,
+// x: {
+//   tick: {
+//     values: ["12:00 AM", "1:00 AM", "2:00 AM", "3:00 AM", "4:00 AM", "5:00 AM", "6:00 AM", "7:00 AM", "8:00 AM", "9:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM", "6:00 PM", "7:00 PM", "8:00 PM", "9:00 PM", "10:00 PM", "11:00 PM",]
+//   }
+// }
+// ,
+// x: {
+//   tick: {
+//     values: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+//   }
+// }
