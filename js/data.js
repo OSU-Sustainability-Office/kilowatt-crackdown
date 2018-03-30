@@ -64,7 +64,11 @@ var currentData = [
 ];
 // Calculate this week's date range.
 var d = new Date();
-var day1 = new Date(d - 1000 * 60 * 60 * 24 * (d.getDay() - 1)); // Get date for first day of the week.
+var day1 = new Date(); // Set beginning date here.
+day1.setYear(2018);
+day1.setMonth(2);
+day1.setDate(25);
+//var day1 = new Date(d - 1000 * 60 * 60 * 24 * (d.getDay() - 1)); // Get date for first day of the week.
 /* d.getDay() - 1 returns monday as the first day of the week.
  * The baseline data starts on a Monday, so it's necessary.
  */
@@ -120,8 +124,7 @@ var calcData = setInterval(function() {
         currentData[i].hourly_baseline.push(Math.abs(val - prevVal)); // Some meters erroneously read negative, so absolute value is necessary.
         prevVal = val;
       }
-
-      console.log(currentData[i].data[0].point[0].value)
+      console.log(currentData[i].hourly_baseline.length)
       // Repeat similar calculation for current data.
       prevVal = currentData[i].data[0].point[0].value;
 
@@ -140,7 +143,7 @@ var calcData = setInterval(function() {
       while (l < currentData[i].hourly_baseline.length) {
         var sum = 0;
         var j;
-        for (j = 0; j < 24 && j < currentData[i].hourly_baseline.length; j++) {
+        for (j = 0; j < 24 && j + l < currentData[i].hourly_baseline.length; j++) {
           sum += currentData[i].hourly_baseline[l + j];
         }
         l += j;
@@ -152,16 +155,17 @@ var calcData = setInterval(function() {
       while (l < currentData[i].hourly.length) {
         var sum = 0;
         var j;
-        for (j = 0; j < 24 && j < currentData[i].hourly.length; j++) {
+        for (j = 0; j < 24 && j + l < currentData[i].hourly.length; j++) {
           sum += currentData[i].hourly[l + j];
         }
         l += j;
         currentData[i].weekly.push(sum);
       }
-
-
     }
     // Draw Charts
     drawCharts();
+
+    // Calculate Percentages
+    leaderboard();
   }
 }, 100); // Function is called every 100 milliseconds until clearInterval is called.
