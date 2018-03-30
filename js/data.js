@@ -132,8 +132,8 @@ var calcData = setInterval(function() {
       for (var r = 4; r < currentData[i].data.length; r = r + 4) {
         // data[r].point[0].value Selects Acc. Real Engy. Net
         var val = currentData[i].data[r].point[0].value;
-        // Removes large numbers and other anomalies
-        if (Math.abs(val - prevVal) < 10000) {
+        // Removes large numbers and other "unfair" anomalies
+        if (Math.abs(val - prevVal) < 1000) {
           currentData[i].hourly.push(Math.abs(val - prevVal)); // Some meters erroneously read negative, so absolute value is necessary.
           prevVal = val;
         } else {

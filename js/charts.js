@@ -35,7 +35,7 @@ function drawCharts() {
         bindto: '#' + weeklyIdList[i],
         data: {
           columns: [
-            ["Baseline"].concat(currentData[i].weekly_baseline.slice(currentData[i].weekly_baseline.length - 8, currentData[i].weekly_baseline.length)),
+            ["Baseline"].concat(currentData[i].weekly_baseline.slice(0, 7)),
             ["Current Period"].concat(currentData[i].weekly.slice(0, currentData[i].weekly.length))
           ],
           axes: {
