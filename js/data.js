@@ -65,11 +65,8 @@ var currentData = [
 var d = new Date();
 var day1 = new Date(); // Set beginning date here.
 day1.setYear(2018);
-day1.setMonth(2);
-day1.setDate(25);
-/* d.getDay() - 1 returns monday as the first day of the week.
- * The baseline data starts on a Monday, so it's necessary.
- */
+day1.setMonth(3);
+day1.setDate(1);
 
 var startDate = day1.getFullYear() + "-" + ("0" + (day1.getMonth() + 1)).slice(-2) + "-" + ("0" + day1.getDate()).slice(-2);
 var currentDate = d.getFullYear() + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + ("0" + (d.getDate() + 1)).slice(-2); // End date is not inclusive.
