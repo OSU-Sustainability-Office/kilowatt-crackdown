@@ -86,12 +86,10 @@ var calcData = setInterval(function() {
     currentData[1].data.length != 0 &&
     currentData[2].data.length != 0 &&
     currentData[3].data.length != 0 &&
-    currentData[4].data.length != 0 &&
     CSVList[0] != "" &&
     CSVList[1] != "" &&
     CSVList[2] != "" &&
-    CSVList[3] != "" &&
-    CSVList[4] != ""
+    CSVList[3] != ""
   ) {
     clearInterval(calcData); // Prevent the function from being called again.
 

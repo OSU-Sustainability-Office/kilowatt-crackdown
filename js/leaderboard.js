@@ -25,16 +25,6 @@ var sorter = function (a,b) {
   return a.change - b.change;
 }
 
-// Toggles .hidden on the current card's card-img-overlay element
-var toggleCardHidden = function toggleCardHidden(e) {
-  var element = e.currentTarget.getElementsByClassName("card-img-overlay")[0];
-  if (element.classList.contains("hidden")) {
-    element.classList.remove("hidden");
-  } else {
-    element.classList.add("hidden");
-  }
-};
-
 // Calculates the percent change from baseline and updates the leaderboard
 // accordingly.
 function leaderboard() {
