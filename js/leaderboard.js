@@ -48,12 +48,12 @@ function leaderboard() {
     // First, calculate the total energy used in baseline and current periods.
     // Baseline
     var baseline = 0;
-    for (var j = 0; j < currentData[i].weekly.length; j++) {
+    for (var j = 0; j < currentData[i].weekly.length - 1; j++) {
       baseline += currentData[i].weekly_baseline[j];
     }
     // Current period
     var current = 0;
-    for (var j = 0; j < currentData[i].weekly.length; j++) {
+    for (var j = 0; j < currentData[i].weekly.length - 1; j++) {
       current += currentData[i].weekly[j];
     }
 
@@ -61,12 +61,12 @@ function leaderboard() {
     var change = current - baseline;
 
     // Calculate change as a percentage of total KWh consumed.
-    change = change/current;
+    change = change/baseline * 100;
     var node = document.createElement("div");
     node.classList.add("alert");
-    if (change > .5) {
+    if (change > 5) {
       node.classList.add("alert-danger");
-    } else if (change <= .5 && change >= -.5) {
+    } else if (change <= 5 && change >= -5) {
       node.classList.add("alert-warning");
     } else {
       node.classList.add("alert-success");
