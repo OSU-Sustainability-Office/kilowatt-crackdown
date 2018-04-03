@@ -48,13 +48,13 @@ function leaderboard() {
     // First, calculate the total energy used in baseline and current periods.
     // Baseline
     var baseline = 0;
-    for (var j = 0; j < currentData[i].weekly.length - 1; j++) {
-      baseline += currentData[i].weekly_baseline[j];
+    for (var j = 0; j < currentData[i].hourly.length - 1; j++) {
+      baseline += currentData[i].hourly_baseline[j];
     }
     // Current period
     var current = 0;
-    for (var j = 0; j < currentData[i].weekly.length - 1; j++) {
-      current += currentData[i].weekly[j];
+    for (var j = 0; j < currentData[i].hourly.length - 1; j++) {
+      current += currentData[i].hourly[j];
     }
 
     // Calculate difference between the two totals.
@@ -64,9 +64,9 @@ function leaderboard() {
     change = change/baseline * 100;
     var node = document.createElement("div");
     node.classList.add("alert");
-    if (change > 5) {
+    if (change > 0) {
       node.classList.add("alert-danger");
-    } else if (change <= 5 && change >= -5) {
+    } else if (change <= 0 && change >= -2) {
       node.classList.add("alert-warning");
     } else {
       node.classList.add("alert-success");
