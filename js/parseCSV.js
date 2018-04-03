@@ -5,7 +5,7 @@ var buildingList = [
   "West",
   "Wilson"
 ];
-var CSVList = ["", "", "", "", ""]; // This will be populated with strings representing CSV files.
+var CSVList = ["", "", "", ""]; // This will be populated with strings representing CSV files.
                                     // CSVs are stored in the same order as buildingList.
 
 for (var i = 0; i < 4; i++) {
@@ -22,13 +22,13 @@ for (var i = 0; i < 4; i++) {
       var data = this.responseText;
       var url = this.responseURL;
       if (url.indexOf("McNary") != -1) {
-        CSVList[1] = Papa.parse(data);
+        CSVList[0] = Papa.parse(data);
       } else if (url.indexOf("Sackett") != -1) {
-        CSVList[2] = Papa.parse(data);
+        CSVList[1] = Papa.parse(data);
       } else if (url.indexOf("West") != -1) {
-        CSVList[3] = Papa.parse(data);
+        CSVList[2] = Papa.parse(data);
       } else {
-        CSVList[4] = Papa.parse(data);
+        CSVList[3] = Papa.parse(data);
       }
     }
   };
