@@ -16,15 +16,6 @@ var collectData = function collectData(obj) {
 // cauthorn, mcnary, sackett, west, wilson
 var currentData = [
   {
-    name: "Cauthorn",
-    id: "5aba8e95c224ce2b0eb05b1b", // Reference ObjectID
-    data: [], // Empty array that will be populated with data.
-    hourly_baseline: [],
-    hourly: [],
-    weekly_baseline: [],
-    weekly: []
-  },
-  {
     name: "McNary",
     id: "5aba8eb6c224ce2b0eb05b1c",
     data: [],
@@ -71,7 +62,7 @@ day1.setDate(1);
 var startDate = day1.getFullYear() + "-" + ("0" + (day1.getMonth() + 1)).slice(-2) + "-" + ("0" + day1.getDate()).slice(-2);
 var currentDate = d.getFullYear() + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + ("0" + (d.getDate() + 1)).slice(-2); // End date is not inclusive.
 
-for (var i = 0; i < 5; i++) {
+for (var i = 0; i < 4; i++) {
 
   var c = currentData[i];
 
@@ -105,7 +96,7 @@ var calcData = setInterval(function() {
     clearInterval(calcData); // Prevent the function from being called again.
 
     // Begin hourly calculations.
-    for (var i = 0; i < 5; i++) {
+    for (var i = 0; i < 4; i++) {
       // Begin with baseline data.
       // Iterate over every hour (4 rows = 1 hour) in CSV baseline data.
       var prevVal = CSVList[i].data[1][4]; // This is the meter reading at the

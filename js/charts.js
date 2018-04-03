@@ -1,12 +1,12 @@
-var dailyIdList = ["cdaily", "mdaily", "sdaily", "wdaily", "widaily"];
-var weeklyIdList = ["cweekly", "mweekly", "sweekly", "wweekly", "wiweekly"];
+var dailyIdList = ["mdaily", "sdaily", "wdaily", "widaily"];
+var weeklyIdList = ["mweekly", "sweekly", "wweekly", "wiweekly"];
 function drawCharts() {
   // Get current date.
   var date = new Date();
   var weekday = date.getDay() + 1;
   var hour = date.getHours();
   // Daily Charts
-  for (var i = 0; i < 5; i++) {
+  for (var i = 0; i < 4; i++) {
     var daily = c3.generate({
         bindto: '#' + dailyIdList[i],
         data: {
@@ -30,7 +30,7 @@ function drawCharts() {
   }
 
   // Weekly Charts
-  for (var i = 0; i < 5; i++) {
+  for (var i = 0; i < 4; i++) {
     var wiweekly = c3.generate({
         bindto: '#' + weeklyIdList[i],
         data: {

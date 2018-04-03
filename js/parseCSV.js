@@ -1,6 +1,5 @@
 // Download & Parse CSV data files from server.
 var buildingList = [
-  "Cauthorn",
   "McNary",
   "Sackett",
   "West",
@@ -9,7 +8,7 @@ var buildingList = [
 var CSVList = ["", "", "", "", ""]; // This will be populated with strings representing CSV files.
                                     // CSVs are stored in the same order as buildingList.
 
-for (var i = 0; i < 5; i++) {
+for (var i = 0; i < 4; i++) {
   var xmlhttp;
   if (window.XMLHttpRequest) {
       // code for modern browsers
@@ -22,9 +21,7 @@ for (var i = 0; i < 5; i++) {
     if (this.readyState == 4 && this.status == 200) {
       var data = this.responseText;
       var url = this.responseURL;
-      if (url.indexOf("Cauthorn") != -1) {
-        CSVList[0] = Papa.parse(data);
-      } else if (url.indexOf("McNary") != -1) {
+      if (url.indexOf("McNary") != -1) {
         CSVList[1] = Papa.parse(data);
       } else if (url.indexOf("Sackett") != -1) {
         CSVList[2] = Papa.parse(data);

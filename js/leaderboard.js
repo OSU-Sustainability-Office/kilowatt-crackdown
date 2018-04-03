@@ -1,10 +1,5 @@
 var lboard = [
   {
-    name: "Cauthorn",
-    change: 0,
-    node: {}
-  },
-  {
     name: "McNary",
     change: 0,
     node: {}
