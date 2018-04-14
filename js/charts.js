@@ -1,10 +1,17 @@
 var dailyIdList = ["mdaily", "sdaily", "wdaily", "widaily"];
 var weeklyIdList = ["mweekly", "sweekly", "wweekly", "wiweekly"];
-function drawCharts() {
-  // Get current date.
-  var date = new Date();
-  var weekday = date.getDay() + 1;
-  var hour = date.getHours();
+// Get current date.
+var date = new Date();
+var dayOfWeek = date.getDay() + 1;
+var currentHour = date.getHours();
+
+function drawCharts(weekday, hour) {
+  if (!weekday) {
+    weekday = dayOfWeek;
+    hour = currentHour;
+  }
+
+
   // Daily Charts
   for (var i = 0; i < 4; i++) {
     var daily = c3.generate({

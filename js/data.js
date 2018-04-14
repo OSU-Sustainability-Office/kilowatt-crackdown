@@ -8,6 +8,8 @@ var collectData = function collectData(obj) {
     if (currentData[i].id == obj.id) {
       found = true;
       currentData[i].data = obj.points;
+      console.log(currentData[i].data)
+      console.log(i)
     } else {
       i++;
     }
@@ -17,7 +19,7 @@ var collectData = function collectData(obj) {
 var currentData = [
   {
     name: "McNary",
-    id: "5aba8eb6c224ce2b0eb05b1c",
+    id: "5acaea78fc6ce26d124e0ffa",
     data: [],
     hourly_baseline: [],
     hourly: [],
@@ -26,7 +28,7 @@ var currentData = [
   },
   {
     name: "Sackett",
-    id: "5aba8ec7c224ce2b0eb05b1d",
+    id: "5acaed4d604a776dbf05dbe9",
     data: [],
     hourly_baseline: [],
     hourly: [],
@@ -35,7 +37,7 @@ var currentData = [
   },
   {
     name: "West",
-    id: "5aba8ed4c224ce2b0eb05b1e",
+    id: "5acaed72604a776dbf05dbeb",
     data: [],
     hourly_baseline: [],
     hourly: [],
@@ -44,7 +46,7 @@ var currentData = [
   },
   {
     name: "Wilson",
-    id: "5aba8ee5c224ce2b0eb05b1f",
+    id: "5acaed63604a776dbf05dbea",
     data: [],
     hourly_baseline: [],
     hourly: [],
@@ -57,7 +59,7 @@ var d = new Date();
 var day1 = new Date(); // Set beginning date here.
 day1.setYear(2018);
 day1.setMonth(3);
-day1.setDate(1);
+day1.setDate(8);
 
 var startDate = day1.getFullYear() + "-" + ("0" + (day1.getMonth() + 1)).slice(-2) + "-" + ("0" + day1.getDate()).slice(-2);
 var currentDate = d.getFullYear() + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + ("0" + (d.getDate() + 1)).slice(-2); // End date is not inclusive.
@@ -92,7 +94,7 @@ var calcData = setInterval(function() {
     CSVList[3] != ""
   ) {
     clearInterval(calcData); // Prevent the function from being called again.
-
+    console.log(currentData)
     // Begin hourly calculations.
     for (var i = 0; i < 4; i++) {
       // Begin with baseline data.
@@ -110,21 +112,21 @@ var calcData = setInterval(function() {
       }
 
       // Repeat similar calculation for current data.
-      console.log(currentData[i])
-      prevVal = currentData[i].data[0].point[0].value;
+      prevVal = currentData[i].data[0].point;
 
       // r begins at 4 because this data doesn't originate from a CSV file.
       // row 0 actually contains data, instead of column titles.
       for (var r = 4; r < currentData[i].data.length; r = r + 4) {
         // data[r].point[0].value Selects Acc. Real Engy. Net
-        var val = currentData[i].data[r].point[0].value;
+        var val;
+        if (currentData[i].data[r] != null)  val = currentData[i].data[r].point;
         // Removes large numbers and other "unfair" anomalies
-        if (Math.abs(val - prevVal) < 1000) {
+        if (Math.abs(val - prevVal) < 100) {
           currentData[i].hourly.push(Math.abs(val - prevVal)); // Some meters erroneously read negative, so absolute value is necessary.
-          prevVal = val;
         } else {
-          currentData[i].hourly.push(currentData[i].hourly[currentData[i].hourly.length - 1]);
+          currentData[i].hourly.push(0);
         }
+        prevVal = val;
       }
 
       // Begin daily totals/computations using hourly data.
@@ -157,5 +159,8 @@ var calcData = setInterval(function() {
 
     // Calculate Percentages
     leaderboard();
+
+    // Create date selector dropdowns
+    // createDateSelect();
   }
 }, 100); // Function is called every 100 milliseconds until clearInterval is called.
