@@ -43,7 +43,7 @@ function drawCharts(weekday, hour) {
         data: {
           columns: [
             ["Baseline"].concat(currentData[i].weekly_baseline.slice(0, 7)),
-            ["Current Period"].concat(currentData[i].weekly.slice(0, currentData[i].weekly.length))
+            ["Current Period"].concat(currentData[i].weekly.slice(currentData[i].weekly.length - currentData[i].weekly.length % 7, currentData[i].weekly.length))
           ],
           axes: {
             data2: 'y2'
