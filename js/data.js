@@ -29,7 +29,7 @@ var currentData = [
   },
   {
     name: "Sackett",
-    id: "5ad8c0c7055feb1076e6bd7b",
+    id: "5ad8cc87055feb1076e6bd7c",
     data: [],
     hourly_baseline: [],
     hourly: [],
@@ -139,7 +139,14 @@ var calcData = setInterval(function() {
         prevVal = val;
       }
 
-      // Begin daily totals/computations using hourly data.
+      // Begin daily totals/computations.
+      
+
+
+
+
+
+      // 96 15 minute intervals in a day.
       // Baseline
       var l = 0; // Location in array.
       while (l < currentData[i].hourly_baseline.length) {
@@ -153,16 +160,12 @@ var calcData = setInterval(function() {
       }
 
       // Current
-      var l = 0; // Location in array.
-      while (l < currentData[i].hourly.length) {
-        var sum = 0;
-        var j;
-        for (j = 0; j < 24 && j + l < currentData[i].hourly.length; j++) {
-          sum += currentData[i].hourly[l + j];
-        }
-        l += j;
-        currentData[i].weekly.push(sum);
+      for (var l = startPos; l < currentData[i].data.length; l = l + 96) {
+        var prev = l - 96;
+        currentData[i].weekly.push(currentData[i].data[l] - currentData[i].data[prev])
       }
+
+
     }
     // Draw Charts
     drawCharts();

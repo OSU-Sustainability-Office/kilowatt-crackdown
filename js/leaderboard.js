@@ -30,11 +30,13 @@ var sorter = function (a,b) {
 function leaderboard() {
   var loc = document.getElementById("leaderboard");
   for (var i = 0; i < currentData.length; i++) {
+    // Calculate the total energy used in baseline for an equivalent period.
+
     // First, calculate the total energy used in baseline and current periods.
     // Baseline
     var baseline = 0;
     for (var j = 0; j < currentData[i].hourly.length - 1; j++) {
-      baseline += currentData[i].hourly_baseline[j];
+      baseline += currentData[i].hourly_baseline[j % (currentData[i].hourly_baseline.length)];
     }
     // Current period
     var current = 0;
