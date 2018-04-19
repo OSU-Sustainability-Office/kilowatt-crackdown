@@ -1,6 +1,7 @@
 // Retrieve building data from server.
 var collectData = function collectData(obj) {
   obj = obj[0];
+  console.log(obj)
   // Perform linear search for building in currentData array.
   var i = 0;
   var found = false;
@@ -28,7 +29,7 @@ var currentData = [
   },
   {
     name: "Sackett",
-    id: "5acaed4d604a776dbf05dbe9",
+    id: "5ad8c0c7055feb1076e6bd7b",
     data: [],
     hourly_baseline: [],
     hourly: [],
@@ -59,7 +60,9 @@ var d = new Date();
 var day1 = new Date(); // Set beginning date here.
 day1.setYear(2018);
 day1.setMonth(3);
-day1.setDate(8);
+day1.setDate(9);
+
+var sDate = Math.round((d.getTime() - day1.getTime()) / 1000 /*Seconds*/ / 60 /*Minutes*/ / 15 /*15 minute intervals*/);
 
 var startDate = day1.getFullYear() + "-" + ("0" + (day1.getMonth() + 1)).slice(-2) + "-" + ("0" + day1.getDate()).slice(-2);
 var currentDate = d.getFullYear() + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + ("0" + (d.getDate() + 1)).slice(-2); // End date is not inclusive.
@@ -69,8 +72,9 @@ for (var i = 0; i < 4; i++) {
   var c = currentData[i];
 
   var url = "http://ec2-52-35-112-51.us-west-2.compute.amazonaws.com:3000/api/getBuildingData?";
-  url = url + "buildings=" + c.id + "&end=" + currentDate + "&start=" + startDate + "&variable=Accumulated+Real+Energy+Net";
+  url = url + "buildings=" + c.id + "&variable=Accumulated+Real+Energy+Net";
   url = encodeURI(url);
+  console.log(url)
 
   // JSONP data request
   var script = document.createElement('script');
@@ -94,7 +98,7 @@ var calcData = setInterval(function() {
     CSVList[3] != ""
   ) {
     clearInterval(calcData); // Prevent the function from being called again.
-    console.log(currentData)
+
     // Begin hourly calculations.
     for (var i = 0; i < 4; i++) {
       // Begin with baseline data.
@@ -112,16 +116,22 @@ var calcData = setInterval(function() {
       }
 
       // Repeat similar calculation for current data.
-      prevVal = currentData[i].data[0].point;
+      // First, we need to calculate the beginning position in the data array.
+      var startPos = currentData[i].data.length - sDate; // Total number of 15 minute intervals - the required number of 15 minute intervals.
+      console.log("SP"+startPos+"-"+i)
+      if (startPos < 0) startPos = 0;
+
+      prevVal = currentData[i].data[startPos].point;
 
       // r begins at 4 because this data doesn't originate from a CSV file.
       // row 0 actually contains data, instead of column titles.
-      for (var r = 4; r < currentData[i].data.length; r = r + 4) {
+      for (var r = startPos; r < currentData[i].data.length; r = r + 4) {
         // data[r].point[0].value Selects Acc. Real Engy. Net
-        var val;
+        var val = 0;
         if (currentData[i].data[r] != null)  val = currentData[i].data[r].point;
+
         // Removes large numbers and other "unfair" anomalies
-        if (Math.abs(val - prevVal) < 100) {
+        if (Math.abs(val - prevVal) < 1000) {
           currentData[i].hourly.push(Math.abs(val - prevVal)); // Some meters erroneously read negative, so absolute value is necessary.
         } else {
           currentData[i].hourly.push(0);
