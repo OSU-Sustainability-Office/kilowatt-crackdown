@@ -16,6 +16,49 @@ var collectData = function collectData(obj) {
     }
   }
 }
+
+function searchDate(d, i) {
+  var data = currentData[i].data;
+  var closeLocs = []; // If the exact timestamp doesn't exist, the closest point will be chosen from this list.
+
+  // Super boring linear search.
+  var j = 0;
+  while (j < currentData[i].data.length) {
+    if (currentData[i].data[j] != null) {
+      // Get current dataPoint's date.
+      var pointDate = new Date(Date.parse(currentData[i].data[j].timestamp));
+
+      var difference = Math.round(Math.abs(pointDate.getTime() - d.getTime()) / (1000 * 60));
+      if (difference < 61) { // If the times are within 1 hour
+        if (difference < 16) { // If the times are within 15 minutes.
+          console.log("test")
+          return j;
+        } else {
+        closeLocs.push({
+          loc: j,
+          diff: difference
+        });
+        }
+      }
+    }
+    j++;
+  }
+
+  // If this is reached, search for closest points.
+
+  var j = 0;
+  var diff = closeLocs[0].diff;
+  var loc = 0;
+  while (j < closeLocs.length) {
+    if (closeLocs[j].diff < diff) {
+      loc = j;
+      diff = closeLocs[j].diff;
+    }
+  }
+
+  return loc;
+
+}
 // cauthorn, mcnary, sackett, west, wilson
 var currentData = [
   {
@@ -140,29 +183,23 @@ var calcData = setInterval(function() {
       }
 
       // Begin daily totals/computations.
-      
 
+      var currentDate = day1; // The date starts at the beginning of the competition.
 
+      // Iterate over every day elapsed during the competition & add up the totals
+      // for each day. d is today's date, and currentDate is the date currently selected for
+      // calculation.
+      while (currentDate.getTime() < d.getTime()) {
+        // Search for first/last entry for a given day, and choose closest entry.
+        var loc1 = searchDate(currentDate, i);
+        currentDate.setDate(currentDate.getDate + 1); // This is also the iterator for the loop.
+        var loc2 = searchDate(currentDate, i);
 
+        // Subtract (end of day) - (beginning of day) entries to get the total consumption for a given day.
+        var cons = currentData[i].data[loc1].point - currentData[i].data[loc2].point;
 
-
-      // 96 15 minute intervals in a day.
-      // Baseline
-      var l = 0; // Location in array.
-      while (l < currentData[i].hourly_baseline.length) {
-        var sum = 0;
-        var j;
-        for (j = 0; j < 24 && j + l < currentData[i].hourly_baseline.length; j++) {
-          sum += currentData[i].hourly_baseline[l + j];
-        }
-        l += j;
-        currentData[i].weekly_baseline.push(sum);
-      }
-
-      // Current
-      for (var l = startPos; l < currentData[i].data.length; l = l + 96) {
-        var prev = l - 96;
-        currentData[i].weekly.push(currentData[i].data[l] - currentData[i].data[prev])
+        // Push consumption to weekly_baseline.
+        currentData[i].weekly.push(cons);
       }
 
 
