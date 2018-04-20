@@ -1,7 +1,6 @@
 // Retrieve building data from server.
 var collectData = function collectData(obj) {
   obj = obj[0];
-  console.log(obj)
   // Perform linear search for building in currentData array.
   var i = 0;
   var found = false;
@@ -9,8 +8,6 @@ var collectData = function collectData(obj) {
     if (currentData[i].id == obj.id) {
       found = true;
       currentData[i].data = obj.points;
-      console.log(currentData[i].data)
-      console.log(i)
     } else {
       i++;
     }
@@ -18,45 +15,45 @@ var collectData = function collectData(obj) {
 }
 
 function searchDate(d, i) {
-  var data = currentData[i].data;
   var closeLocs = []; // If the exact timestamp doesn't exist, the closest point will be chosen from this list.
-
   // Super boring linear search.
-  var j = 0;
-  while (j < currentData[i].data.length) {
+  var j = currentData[i].data.length - 1;
+  while (j >= 0 ) {
     if (currentData[i].data[j] != null) {
       // Get current dataPoint's date.
       var pointDate = new Date(Date.parse(currentData[i].data[j].timestamp));
 
       var difference = Math.round(Math.abs(pointDate.getTime() - d.getTime()) / (1000 * 60));
-      if (difference < 61) { // If the times are within 1 hour
+      if (difference < 61) { // If the times are within 2 hours
         if (difference < 16) { // If the times are within 15 minutes.
-          console.log("test")
           return j;
         } else {
         closeLocs.push({
-          loc: j,
-          diff: difference
+          "loc": j,
+          "diff": difference
         });
         }
       }
     }
-    j++;
+    j--;
   }
 
   // If this is reached, search for closest points.
-
-  var j = 0;
-  var diff = closeLocs[0].diff;
-  var loc = 0;
-  while (j < closeLocs.length) {
-    if (closeLocs[j].diff < diff) {
-      loc = j;
-      diff = closeLocs[j].diff;
+  if (closeLocs.length > 0) {
+    var j = 0;
+    var diff = closeLocs[0].diff;
+    var loc = 0;
+    while (j < closeLocs.length) {
+      if (closeLocs[j].diff < diff) {
+        loc = j;
+        diff = closeLocs[j].diff;
+      }
+      j++;
     }
+    return closeLocs[loc].loc;
   }
 
-  return loc;
+  return -1; // Nothing was found.
 
 }
 // cauthorn, mcnary, sackett, west, wilson
@@ -161,7 +158,7 @@ var calcData = setInterval(function() {
       // Repeat similar calculation for current data.
       // First, we need to calculate the beginning position in the data array.
       var startPos = currentData[i].data.length - sDate; // Total number of 15 minute intervals - the required number of 15 minute intervals.
-      console.log("SP"+startPos+"-"+i)
+
       if (startPos < 0) startPos = 0;
 
       prevVal = currentData[i].data[startPos].point;
@@ -183,23 +180,24 @@ var calcData = setInterval(function() {
       }
 
       // Begin daily totals/computations.
-
-      var currentDate = day1; // The date starts at the beginning of the competition.
-
+      var currentDate = new Date(); // The date starts at the beginning of the competition.
+      currentDate.setMonth(day1.getMonth());
+      currentDate.setDate(day1.getDate());
       // Iterate over every day elapsed during the competition & add up the totals
       // for each day. d is today's date, and currentDate is the date currently selected for
       // calculation.
       while (currentDate.getTime() < d.getTime()) {
         // Search for first/last entry for a given day, and choose closest entry.
         var loc1 = searchDate(currentDate, i);
-        currentDate.setDate(currentDate.getDate + 1); // This is also the iterator for the loop.
+        currentDate.setDate(currentDate.getDate() + 1); // This is also the iterator for the loop.
         var loc2 = searchDate(currentDate, i);
 
+        var cons = 0;
         // Subtract (end of day) - (beginning of day) entries to get the total consumption for a given day.
-        var cons = currentData[i].data[loc1].point - currentData[i].data[loc2].point;
+        if (loc1 != -1 && loc2 != -1) cons = currentData[i].data[loc1].point - currentData[i].data[loc2].point;
 
         // Push consumption to weekly_baseline.
-        currentData[i].weekly.push(cons);
+        currentData[i].weekly.push(Math.abs(cons));
       }
 
 
