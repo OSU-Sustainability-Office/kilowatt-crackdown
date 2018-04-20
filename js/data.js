@@ -189,19 +189,20 @@ var calcData = setInterval(function() {
         }
         l += j;
         currentData[i].weekly_baseline.push(sum);
-        console.log(sum)
       }
 
       // Current Period
       var currentDate = new Date(); // The date starts at the beginning of the competition.
       currentDate.setMonth(day1.getMonth());
       currentDate.setDate(day1.getDate());
+
+      // Initialize loc1 with the first day.
+      var loc1 = searchDate(currentDate, i);
       // Iterate over every day elapsed during the competition & add up the totals
       // for each day. d is today's date, and currentDate is the date currently selected for
       // calculation.
       while (currentDate.getTime() < d.getTime()) {
         // Search for first/last entry for a given day, and choose closest entry.
-        var loc1 = searchDate(currentDate, i);
         currentDate.setDate(currentDate.getDate() + 1); // This is also the iterator for the loop.
         var loc2 = searchDate(currentDate, i);
 
@@ -211,6 +212,8 @@ var calcData = setInterval(function() {
 
         // Push consumption to weekly_baseline.
         currentData[i].weekly.push(Math.abs(cons));
+
+        loc1 = loc2;
       }
 
 
