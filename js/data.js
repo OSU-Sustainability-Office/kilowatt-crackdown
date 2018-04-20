@@ -18,7 +18,7 @@ function searchDate(d, i) {
   var closeLocs = []; // If the exact timestamp doesn't exist, the closest point will be chosen from this list.
   // Super boring linear search.
   var j = currentData[i].data.length - 1;
-  while (j >= 0 ) {
+  while (j >= 0) {
     if (currentData[i].data[j] != null) {
       // Get current dataPoint's date.
       var pointDate = new Date(Date.parse(currentData[i].data[j].timestamp));
@@ -28,10 +28,10 @@ function searchDate(d, i) {
         if (difference < 16) { // If the times are within 15 minutes.
           return j;
         } else {
-        closeLocs.push({
-          "loc": j,
-          "diff": difference
-        });
+          closeLocs.push({
+            "loc": j,
+            "diff": difference
+          });
         }
       }
     }
@@ -57,8 +57,7 @@ function searchDate(d, i) {
 
 }
 // cauthorn, mcnary, sackett, west, wilson
-var currentData = [
-  {
+var currentData = [{
     name: "McNary",
     id: "5acaea78fc6ce26d124e0ffa",
     data: [],
@@ -102,7 +101,7 @@ day1.setYear(2018);
 day1.setMonth(3);
 day1.setDate(9);
 
-var sDate = Math.round((d.getTime() - day1.getTime()) / 1000 /*Seconds*/ / 60 /*Minutes*/ / 15 /*15 minute intervals*/);
+var sDate = Math.round((d.getTime() - day1.getTime()) / 1000 /*Seconds*/ / 60 /*Minutes*/ / 15 /*15 minute intervals*/ );
 
 var startDate = day1.getFullYear() + "-" + ("0" + (day1.getMonth() + 1)).slice(-2) + "-" + ("0" + day1.getDate()).slice(-2);
 var currentDate = d.getFullYear() + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + ("0" + (d.getDate() + 1)).slice(-2); // End date is not inclusive.
@@ -144,7 +143,7 @@ var calcData = setInterval(function() {
       // Begin with baseline data.
       // Iterate over every hour (4 rows = 1 hour) in CSV baseline data.
       var prevVal = CSVList[i].data[1][4]; // This is the meter reading at the
-                                           // beginning of the first hour.
+      // beginning of the first hour.
 
       // r starts at 5 because line 0 has the titles of each column in the csv
       // file, and 5 contains the reading at the end of the first hour.
@@ -168,7 +167,7 @@ var calcData = setInterval(function() {
       for (var r = startPos; r < currentData[i].data.length; r = r + 4) {
         // data[r].point[0].value Selects Acc. Real Engy. Net
         var val = 0;
-        if (currentData[i].data[r] != null)  val = currentData[i].data[r].point;
+        if (currentData[i].data[r] != null) val = currentData[i].data[r].point;
 
         // Removes large numbers and other "unfair" anomalies
         if (Math.abs(val - prevVal) < 1000) {
@@ -180,6 +179,20 @@ var calcData = setInterval(function() {
       }
 
       // Begin daily totals/computations.
+      // Baseline
+      var l = 0; // Location in array.
+      while (l < currentData[i].hourly_baseline.length) {
+        var sum = 0;
+        var j;
+        for (j = 0; j < 24 && j + l < currentData[i].hourly_baseline.length; j++) {
+          sum += currentData[i].hourly_baseline[l + j];
+        }
+        l += j;
+        currentData[i].weekly_baseline.push(sum);
+        console.log(sum)
+      }
+
+      // Current Period
       var currentDate = new Date(); // The date starts at the beginning of the competition.
       currentDate.setMonth(day1.getMonth());
       currentDate.setDate(day1.getDate());
