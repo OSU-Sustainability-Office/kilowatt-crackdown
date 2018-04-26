@@ -210,6 +210,13 @@ var calcData = setInterval(function() {
         // Subtract (end of day) - (beginning of day) entries to get the total consumption for a given day.
         if (loc1 != -1 && loc2 != -1) cons = currentData[i].data[loc1].point - currentData[i].data[loc2].point;
 
+        // Check for inaccurate data.
+        while (Math.abs(cons) > 5000) {
+          currentDate.setHours(currentDate.getHours() + 1); // This is also the iterator for the loop.
+          var loc2 = searchDate(currentDate, i);
+          cons = currentData[i].data[loc1].point - currentData[i].data[loc2].point
+        }
+
         // Push consumption to weekly_baseline.
         currentData[i].weekly.push(Math.abs(cons));
 

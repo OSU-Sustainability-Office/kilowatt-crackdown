@@ -38,7 +38,6 @@ function leaderboard() {
     for (var j = 0; j < currentData[i].weekly.length - 1; j++) {
       baseline += currentData[i].weekly_baseline[j % (currentData[i].weekly_baseline.length - 1)];
     }
-    console.log(i + "," + baseline)
     // Current period
     var current = 0;
     for (var j = 0; j < currentData[i].weekly.length - 1; j++) {
