@@ -212,7 +212,7 @@ var calcData = setInterval(function() {
 
         // Check for inaccurate data.
         while (Math.abs(cons) > 5000) {
-          currentDate.setHours(currentDate.getHours() + 1); // This is also the iterator for the loop.
+          currentDate.setHours(currentDate.getHours() + 1);
           var loc2 = searchDate(currentDate, i);
           cons = currentData[i].data[loc1].point - currentData[i].data[loc2].point
         }
