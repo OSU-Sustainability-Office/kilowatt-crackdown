@@ -110,7 +110,7 @@ var currentDate = d.getFullYear() + "-" + ("0" + (d.getMonth() + 1)).slice(-2) +
 if (d.getYear() > 2018 || d.getMonth() > 4 && d.getDate() > 6) { // May 5th 2018 is the last day of the competition.
   d.setYear(2018);
   d.setMonth(4);
-  d.setDate(5);
+  d.setDate(6);
 }
 
 
