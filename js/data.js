@@ -106,6 +106,14 @@ var sDate = Math.round((d.getTime() - day1.getTime()) / 1000 /*Seconds*/ / 60 /*
 var startDate = day1.getFullYear() + "-" + ("0" + (day1.getMonth() + 1)).slice(-2) + "-" + ("0" + day1.getDate()).slice(-2);
 var currentDate = d.getFullYear() + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + ("0" + (d.getDate() + 1)).slice(-2); // End date is not inclusive.
 
+// Set current date to the competition's end date if the competition has ended.
+if (d.getYear() > 2018 || d.getMonth() > 4 && d.getDate() > 6) { // May 5th 2018 is the last day of the competition.
+  d.setYear(2018);
+  d.setMonth(4);
+  d.setDate(5);
+}
+
+
 for (var i = 0; i < 4; i++) {
 
   var c = currentData[i];
