@@ -16,7 +16,7 @@ var collectData = function collectData(obj) {
 
 function searchDate(d, i) {
   var closeLocs = []; // If the exact timestamp doesn't exist, the closest point will be chosen from this list.
-  // Super boring linear search.
+                      // Super boring linear search.
   var j = currentData[i].data.length - 1;
   while (j >= 0) {
     if (currentData[i].data[j] != null) {
@@ -24,7 +24,7 @@ function searchDate(d, i) {
       var pointDate = new Date(Date.parse(currentData[i].data[j].timestamp));
 
       var difference = Math.round(Math.abs(pointDate.getTime() - d.getTime()) / (1000 * 60));
-      if (difference < 61) { // If the times are within 2 hours
+      if (difference < 121) { // If the times are within 2 hours
         if (difference < 16) { // If the times are within 15 minutes.
           return j;
         } else {
@@ -113,7 +113,6 @@ for (var i = 0; i < 4; i++) {
   var url = "http://ec2-52-35-112-51.us-west-2.compute.amazonaws.com:3000/api/getBuildingData?";
   url = url + "buildings=" + c.id + "&variable=Accumulated+Real+Energy+Net";
   url = encodeURI(url);
-  console.log(url)
 
   // JSONP data request
   var script = document.createElement('script');
@@ -216,6 +215,7 @@ var calcData = setInterval(function() {
           var loc2 = searchDate(currentDate, i);
           cons = currentData[i].data[loc1].point - currentData[i].data[loc2].point
         }
+
 
         // Push consumption to weekly_baseline.
         currentData[i].weekly.push(Math.abs(cons));
