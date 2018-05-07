@@ -119,7 +119,7 @@ for (var i = 0; i < 4; i++) {
   var c = currentData[i];
 
   var url = "http://ec2-52-35-112-51.us-west-2.compute.amazonaws.com:3000/api/getBuildingData?";
-  url = url + "building=" + c.id + "&variable=Accumulated+Real+Energy+Net";
+  url = url + "buildings=" + c.id + "&variable=Accumulated+Real+Energy+Net";
   url = encodeURI(url);
 
   // JSONP data request
