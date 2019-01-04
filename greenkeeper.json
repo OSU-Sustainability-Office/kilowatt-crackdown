@@ -1,0 +1,9 @@
+{
+  "groups": {
+    "default": {
+      "packages": [
+        "c3-0.5.1/package.json"
+      ]
+    }
+  }
+}
