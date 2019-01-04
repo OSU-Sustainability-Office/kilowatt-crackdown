@@ -1,4 +1,7 @@
 # Dashboard for Kilowatt Crackdown 2018
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/OSU-Sustainability-Office/kilowatt-crackdown.svg)](https://greenkeeper.io/)
+
 ## Introduction
 Thanks for checking out this repo! This web application compiles & compares real-time electricity consumption data to baseline consumption data for marketing/outreach purposes. Using this dashboard, the Sustainability Office hopes to draw practical, tangible connections between individuals' daily choices and their community's aggregated energy consumption.
 
